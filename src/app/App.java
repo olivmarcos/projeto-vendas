@@ -4,6 +4,7 @@ import java.util.Date;
 
 import dao.ClienteDao;
 import dao.PedidoDao;
+import dao.ProdutoMovimentacaoDao;
 import dao.VendedorDao;
 import database.DatabaseConnection;
 import facade.PedidoFacade;
@@ -35,11 +36,11 @@ public class App {
 
         // ===================================================================================================
         // Pedido
-        pedido.setPed_codigo(13);;
-        pedido.setPed_data(new Date());
-        pedido.setPed_observacao("Compra Sei Lá");
-        pedido.setPed_cod_cliente(1);
-        pedido.setPed_cod_vendedor(1);
+        pedido.setPed_codigo(1);;
+        pedido.setPed_data("2020-04-08 17:34:30");
+        // pedido.setPed_observacao("Compra Sei Lá");
+        // pedido.setPed_cod_cliente(1);
+        // pedido.setPed_cod_vendedor(1);
 
         // ===================================================================================================
         // Produto
@@ -51,8 +52,8 @@ public class App {
 
         PedidoFacade pedidoFacade = new PedidoFacade();
 
-        pedidoFacade.fazerPedido(cliente, vendedor, pedido, produto);
+        // pedidoFacade.fazerPedido(cliente, vendedor, pedido, produto);
 
-
+        pedidoFacade.desfazerPedido(produto, pedido);
     }
 }

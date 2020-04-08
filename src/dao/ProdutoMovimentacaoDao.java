@@ -84,7 +84,7 @@ public class ProdutoMovimentacaoDao {
 
     public boolean delete(int id) {
 
-        String sql = "DELETE FROM TBL_PRODUTO_MOVIMENTACAO WHERE prod_codigo = ?";
+        String sql = "DELETE FROM TBL_PRODUTO_MOVIMENTACAO WHERE prodm_codigo = ?";
 
         try {
             PreparedStatement pst = myConnection.prepareStatement(sql);
@@ -125,5 +125,31 @@ public class ProdutoMovimentacaoDao {
             System.err.println(ex.getMessage());
         }
         return null;
+    }
+
+    
+    public ProdutoMovimentacao recover(String data) {
+
+        String sql = "SELECT prodm_codigo, prodm_data, prodm_descricao, prodm_cod_produto FROM TBL_PRODUTO_MOVIMENTACAO WHERE prodm_data = ?";
+
+        try {
+
+            PreparedStatement pst = myConnection.prepareStatement(sql);
+            pst.setString(1, data);
+            ResultSet result = pst.executeQuery();
+            result.next();
+
+            ProdutoMovimentacao produtoMovimentacao = new ProdutoMovimentacao();
+
+            produtoMovimentacao.setProdm_codigo(result.getInt("prodm_codigo"));
+            produtoMovimentacao.setProdm_data(result.getDate("prodm_data"));
+            produtoMovimentacao.setProdm_descricao(result.getString("prodm_descricao"));
+            produtoMovimentacao.setProdm_cod_produto(result.getInt("prodm_cod_produto"));
+
+            return produtoMovimentacao;
+        } catch (SQLException e) {
+            System.err.println("Erro ao recuperar o registro " + e.getMessage());
+            return null;
+        }
     }
 }

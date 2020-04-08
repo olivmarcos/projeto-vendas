@@ -82,19 +82,16 @@ public class PedidoFacade {
     public void desfazerPedido(Produto produto, Pedido pedido)
     {
         Connection conn = DatabaseConnection.getConexaoTransacional();
-
         try {
-            ProdutoMovimentacaoDao produtoMovimentacaoDao = new ProdutoMovimentacaoDao();
-            produtoMovimentacaoDao.delete(produto.getProd_codigo());
+            ProdutoMovimentacaoDao produtoMovimentacaoDao = new ProdutoMovimentacaoDao(conn);
+            System.out.println(produtoMovimentacaoDao.recover(pedido.getPed_data()));
 
-            PedidoProdutoDao pedidoProdutoDao = new PedidoProdutoDao();
-            PedidoProduto pedidoProduto = pedidoProdutoDao.recover(produto.getProd_codigo());
-            produto.setProd_saldo(produto.getProd_saldo() + pedidoProduto.getPedp_quantidade());
+            ProdutoMovimentacao produtoMovimentacao = produtoMovimentacaoDao.recover(pedido.getPed_data());
+            produtoMovimentacaoDao.delete(produtoMovimentacao.getProdm_codigo());
 
-            VendedorComissaoDao vendedorComissaoDao = new VendedorComissaoDao();
-
-        } catch (Exception e) {
-            //TODO: handle exception
+            conn.commit();
+        } catch (Exception err) {
+            System.err.println("Erro ao remover o pedido: " + err.getMessage());
         }
     }
 }
