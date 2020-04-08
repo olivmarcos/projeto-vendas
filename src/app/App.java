@@ -49,8 +49,10 @@ public class App {
         produto.setProd_unidade("uni");
 
 
-        PedidoFacade fazerPedido = new PedidoFacade();
+        PedidoFacade pedidoFacade = new PedidoFacade();
 
-        fazerPedido.pedido(cliente, vendedor, pedido, produto);
+        pedidoFacade.fazerPedido(cliente, vendedor, pedido, produto);
+
+
     }
 }

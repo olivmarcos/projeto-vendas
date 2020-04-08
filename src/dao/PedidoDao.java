@@ -125,4 +125,21 @@ public class PedidoDao {
         }
         return null;
     }
+
+    public int ultimoCodigo() throws SQLException {
+        String sql = "SELECT ped_codigo FROM TBL_PEDIDO ORDER BY ped_codigo DESC LIMIT 1";
+
+        try {
+            PreparedStatement pst = myConnection.prepareStatement(sql);
+            ResultSet result = pst.executeQuery();
+            result.next();
+    
+            Pedido pedidoCodigo = new Pedido();
+            int codigo = result.getInt("ped_codigo");
+            return codigo;
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        return 0;
+    }
 }

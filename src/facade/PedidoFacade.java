@@ -23,7 +23,7 @@ import models.VendedorComissao;
 
 public class PedidoFacade {
 
-    public void pedido(Cliente cliente, Vendedor vendedor, Pedido pedido, Produto produto) throws SQLException {
+    public void fazerPedido(Cliente cliente, Vendedor vendedor, Pedido pedido, Produto produto) throws SQLException {
 
         Connection conn = DatabaseConnection.getConexaoTransacional();
         
@@ -31,6 +31,8 @@ public class PedidoFacade {
             PedidoDao pedidoDao = new PedidoDao(conn);
             pedidoDao.insert(pedido);
 
+            pedido.setPed_codigo(pedidoDao.ultimoCodigo());
+        
             PedidoProduto pedidoProduto = new PedidoProduto();
             pedidoProduto.setPedp_quantidade(2);
             pedidoProduto.setPedp_valor(250.00);
@@ -42,7 +44,7 @@ public class PedidoFacade {
 
             ProdutoMovimentacao produtoMovimentacao = new ProdutoMovimentacao();
             produtoMovimentacao.setProdm_descricao("Não sei o que deveria ter aqui");
-            produtoMovimentacao.setProdm_data(new Date());
+            produtoMovimentacao.setProdm_data(pedido.getPed_data());
             produtoMovimentacao.setProdm_cod_produto(produto.getProd_codigo());
 
             ProdutoMovimentacaoDao produtoMovimentacaoDao = new ProdutoMovimentacaoDao(conn);
@@ -70,10 +72,29 @@ public class PedidoFacade {
             clienteDao.update(cliente);
 
             conn.commit();
-            conn.close();
             System.out.println("Pedido realizado com sucesso.");
         } catch (Exception err) {
             System.err.println("Erro ao realizar o pedido: " + err.getMessage());
+            conn.rollback();
+        }
+    }
+
+    public void desfazerPedido(Produto produto, Pedido pedido)
+    {
+        Connection conn = DatabaseConnection.getConexaoTransacional();
+
+        try {
+            ProdutoMovimentacaoDao produtoMovimentacaoDao = new ProdutoMovimentacaoDao();
+            produtoMovimentacaoDao.delete(produto.getProd_codigo());
+
+            PedidoProdutoDao pedidoProdutoDao = new PedidoProdutoDao();
+            PedidoProduto pedidoProduto = pedidoProdutoDao.recover(produto.getProd_codigo());
+            produto.setProd_saldo(produto.getProd_saldo() + pedidoProduto.getPedp_quantidade());
+
+            VendedorComissaoDao vendedorComissaoDao = new VendedorComissaoDao();
+
+        } catch (Exception e) {
+            //TODO: handle exception
         }
     }
 }

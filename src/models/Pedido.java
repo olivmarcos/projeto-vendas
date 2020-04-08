@@ -28,6 +28,10 @@ public class Pedido {
         this.ped_data = data;
     }
 
+    public void setPed_data(String ped_data) {
+        this.ped_data = ped_data;
+    }
+
     public String getPed_observacao() {
         return this.ped_observacao;
     }

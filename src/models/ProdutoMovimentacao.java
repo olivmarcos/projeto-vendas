@@ -28,6 +28,10 @@ public class ProdutoMovimentacao {
         this.prodm_data = data;
     }
 
+    public void setProdm_data(String prodm_data) {
+        this.prodm_data = prodm_data;
+    }
+
     public String getProdm_descricao() {
         return this.prodm_descricao;
     }
