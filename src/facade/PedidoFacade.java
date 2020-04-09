@@ -43,7 +43,7 @@ public class PedidoFacade {
             pedidoProdutoDao.insert(pedidoProduto);
 
             ProdutoMovimentacao produtoMovimentacao = new ProdutoMovimentacao();
-            produtoMovimentacao.setProdm_descricao("Não sei o que deveria ter aqui");
+            produtoMovimentacao.setProdm_descricao("Saída do produto " + produto.getProd_descricao() + " às " + pedido.getPed_data());
             produtoMovimentacao.setProdm_data(pedido.getPed_data());
             produtoMovimentacao.setProdm_cod_produto(produto.getProd_codigo());
 
@@ -52,7 +52,6 @@ public class PedidoFacade {
 
             ProdutoDao produtoDao = new ProdutoDao(conn);
             Produto instanceProduto = produtoDao.recover(produto.getProd_codigo());
-            System.out.println(instanceProduto);
             Integer codigo = instanceProduto.getProd_codigo();
 
             if(codigo != null) {
@@ -104,10 +103,15 @@ public class PedidoFacade {
             pedidoDao.delete(pedido.getPed_codigo());
 
             Pedido pedido2 = pedidoDao.recoverUltimoPedido(cliente.getCli_codigo());
+            if(pedido2 == null) {
+                System.out.println("Não há mais pedidos.");
+                return;
+            }
 
             ClienteDao clienteDao = new ClienteDao(conn);
             cliente.setCli_ultima_compra(pedido2.getPed_data());
             clienteDao.update(cliente);
+
             conn.commit();
             System.out.println("Pedido removido com sucesso!");
         } catch (Exception err) {

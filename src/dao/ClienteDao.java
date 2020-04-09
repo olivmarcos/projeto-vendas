@@ -53,7 +53,7 @@ public class ClienteDao {
             cliente.setCli_codigo(result.getInt("cli_codigo"));
             cliente.setCli_nome(result.getString("cli_nome"));
             cliente.setCli_cpf(result.getString("cli_cpf"));    
-            cliente.setCli_ultima_compra(result.getDate("cli_ultima_compra"));
+            cliente.setCli_ultima_compra(result.getString("cli_ultima_compra"));
 
             return cliente;
         } catch (SQLException e) {
@@ -110,7 +110,7 @@ public class ClienteDao {
                     cliente.setCli_codigo(result.getInt("cli_codigo"));
                     cliente.setCli_nome(result.getString("cli_nome"));
                     cliente.setCli_cpf(result.getString("cli_cpf"));    
-                    cliente.setCli_ultima_compra(result.getDate("cli_ultima_compra"));
+                    cliente.setCli_ultima_compra(result.getString("cli_ultima_compra"));
 
                     clientes.add(cliente);
             }

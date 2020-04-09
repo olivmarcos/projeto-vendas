@@ -55,7 +55,7 @@ public class ProdutoMovimentacaoDao {
             ProdutoMovimentacao produtoMovimentacao = new ProdutoMovimentacao();
 
             produtoMovimentacao.setProdm_codigo(result.getInt("prodm_codigo"));
-            produtoMovimentacao.setProdm_data(result.getDate("prodm_data"));
+            produtoMovimentacao.setProdm_data(result.getString("prodm_data"));
             produtoMovimentacao.setProdm_descricao(result.getString("prodm_descricao"));
             produtoMovimentacao.setProdm_cod_produto(result.getInt("prodm_cod_produto"));
 
@@ -112,7 +112,7 @@ public class ProdutoMovimentacaoDao {
                 ProdutoMovimentacao produtoMovimentacao = new ProdutoMovimentacao();
 
                 produtoMovimentacao.setProdm_codigo(result.getInt("prodm_codigo"));
-                produtoMovimentacao.setProdm_data(result.getDate("prodm_data"));
+                produtoMovimentacao.setProdm_data(result.getString("prodm_data"));
                 produtoMovimentacao.setProdm_descricao(result.getString("prodm_descricao"));
                 produtoMovimentacao.setProdm_cod_produto(result.getInt("prodm_cod_produto"));
 
@@ -142,7 +142,7 @@ public class ProdutoMovimentacaoDao {
             ProdutoMovimentacao produtoMovimentacao = new ProdutoMovimentacao();
 
             produtoMovimentacao.setProdm_codigo(result.getInt("prodm_codigo"));
-            produtoMovimentacao.setProdm_data(result.getDate("prodm_data"));
+            produtoMovimentacao.setProdm_data(result.getString("prodm_data"));
             produtoMovimentacao.setProdm_descricao(result.getString("prodm_descricao"));
             produtoMovimentacao.setProdm_cod_produto(result.getInt("prodm_cod_produto"));
 

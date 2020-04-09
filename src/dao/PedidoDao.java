@@ -52,7 +52,7 @@ public class PedidoDao {
 
             Pedido pedido = new Pedido();
             pedido.setPed_codigo(result.getInt("ped_codigo"));
-            pedido.setPed_data(result.getDate("ped_data"));
+            pedido.setPed_data(result.getString("ped_data"));
             pedido.setPed_observacao(result.getString("ped_observacao"));
             pedido.setPed_cod_cliente(result.getInt("ped_cod_cliente"));
             pedido.setPed_cod_vendedor(result.getInt("ped_cod_vendedor"));
@@ -110,7 +110,7 @@ public class PedidoDao {
                 Pedido pedido = new Pedido();
 
                 pedido.setPed_codigo(result.getInt("ped_codigo"));
-                pedido.setPed_data(result.getDate("ped_data"));
+                pedido.setPed_data(result.getString("ped_data"));
                 pedido.setPed_observacao(result.getString("ped_observacao"));
                 pedido.setPed_cod_cliente(result.getInt("ped_cod_cliente"));
                 pedido.setPed_cod_vendedor(result.getInt("ped_cod_vendedor"));
@@ -154,7 +154,7 @@ public class PedidoDao {
 
             Pedido pedido = new Pedido();
             pedido.setPed_codigo(result.getInt("ped_codigo"));
-            pedido.setPed_data(result.getDate("ped_data"));
+            pedido.setPed_data(result.getString("ped_data"));
             pedido.setPed_observacao(result.getString("ped_observacao"));
             pedido.setPed_cod_cliente(result.getInt("ped_cod_cliente"));
             pedido.setPed_cod_vendedor(result.getInt("ped_cod_vendedor"));
