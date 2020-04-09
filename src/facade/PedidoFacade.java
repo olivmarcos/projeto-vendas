@@ -31,7 +31,7 @@ public class PedidoFacade {
             PedidoDao pedidoDao = new PedidoDao(conn);
             pedidoDao.insert(pedido);
 
-            pedido.setPed_codigo(pedidoDao.ultimoCodigo());
+            pedido.setPed_codigo(pedidoDao.recoverUltimoCodigo());
         
             PedidoProduto pedidoProduto = new PedidoProduto();
             pedidoProduto.setPedp_quantidade(2);
@@ -79,17 +79,37 @@ public class PedidoFacade {
         }
     }
 
-    public void desfazerPedido(Produto produto, Pedido pedido)
+    public void desfazerPedido(Produto produto, Pedido pedido, Cliente cliente)
     {
         Connection conn = DatabaseConnection.getConexaoTransacional();
         try {
             ProdutoMovimentacaoDao produtoMovimentacaoDao = new ProdutoMovimentacaoDao(conn);
-            System.out.println(produtoMovimentacaoDao.recover(pedido.getPed_data()));
-
-            ProdutoMovimentacao produtoMovimentacao = produtoMovimentacaoDao.recover(pedido.getPed_data());
+            ProdutoMovimentacao produtoMovimentacao = produtoMovimentacaoDao.recoverPorData(pedido.getPed_data());
             produtoMovimentacaoDao.delete(produtoMovimentacao.getProdm_codigo());
 
+            PedidoProdutoDao pedidoProdutoDao = new PedidoProdutoDao(conn);
+            PedidoProduto pedidoProduto = pedidoProdutoDao.recoverPorPedido(pedido.getPed_codigo());
+
+            ProdutoDao produtoDao = new ProdutoDao(conn);
+            produto.setProd_saldo(produto.getProd_saldo() + pedidoProduto.getPedp_quantidade());
+            produtoDao.update(produto);
+            
+            VendedorComissaoDao vendedorComissaoDao = new VendedorComissaoDao(conn);
+            VendedorComissao vendedorComissao = vendedorComissaoDao.recoverPorPedido(pedido.getPed_codigo());
+            vendedorComissaoDao.delete(vendedorComissao.getVnc_cod_pedido());
+
+            pedidoProdutoDao.delete(pedidoProduto.getPedp_codigo());
+
+            PedidoDao pedidoDao = new PedidoDao(conn);
+            pedidoDao.delete(pedido.getPed_codigo());
+
+            Pedido pedido2 = pedidoDao.recoverUltimoPedido(cliente.getCli_codigo());
+
+            ClienteDao clienteDao = new ClienteDao(conn);
+            cliente.setCli_ultima_compra(pedido2.getPed_data());
+            clienteDao.update(cliente);
             conn.commit();
+            System.out.println("Pedido removido com sucesso!");
         } catch (Exception err) {
             System.err.println("Erro ao remover o pedido: " + err.getMessage());
         }

@@ -86,7 +86,7 @@ public class VendedorComissaoDao {
 
     public boolean delete(int id) {
 
-        String sql = "DELETE FROM TBL_VENDEDOR_COMISSAO WHERE prod_codigo = ?";
+        String sql = "DELETE FROM TBL_VENDEDOR_COMISSAO WHERE vnc_codigo = ?";
 
         try {
             PreparedStatement pst = myConnection.prepareStatement(sql);
@@ -127,5 +127,30 @@ public class VendedorComissaoDao {
             System.err.println(ex.getMessage());
         }
         return null;
+    }
+
+    public VendedorComissao recoverPorPedido(int id) {
+
+        String sql = "SELECT vnc_codigo, vnc_comissao, vnc_cod_vendedor, vnc_cod_pedido FROM TBL_VENDEDOR_COMISSAO WHERE vnc_cod_pedido = ?";
+
+        try {
+
+            PreparedStatement pst = myConnection.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet result = pst.executeQuery();
+            result.next();
+
+            VendedorComissao vendedorComissaoDao = new VendedorComissao();
+
+            vendedorComissaoDao.setVnc_codigo(result.getInt("vnc_codigo"));
+            vendedorComissaoDao.setVnc_comissao(result.getDouble("vnc_comissao"));
+            vendedorComissaoDao.setVnc_cod_vendedor(result.getInt("vnc_cod_vendedor"));
+            vendedorComissaoDao.setVnc_cod_pedido(result.getInt("vnc_cod_pedido"));
+
+            return vendedorComissaoDao;
+        } catch (SQLException e) {
+            System.err.println("Erro ao recuperar o registro " + e.getMessage());
+            return null;
+        }
     }
 }

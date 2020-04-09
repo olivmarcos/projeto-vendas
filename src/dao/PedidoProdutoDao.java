@@ -131,4 +131,30 @@ public class PedidoProdutoDao {
         }
         return null;
     }
+
+    public PedidoProduto recoverPorPedido(int id) {
+
+        String sql = "SELECT pedp_codigo, pedp_quantidade, pedp_valor, pedp_valor_total, pedp_cod_produto, pedp_cod_pedido FROM TBL_PEDIDO_PRODUTO WHERE pedp_cod_pedido = ?";
+
+        try {
+            PreparedStatement pst = myConnection.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet result = pst.executeQuery();
+            result.next();
+
+            PedidoProduto pedidoProduto = new PedidoProduto();
+
+            pedidoProduto.setPedp_codigo(result.getInt("pedp_codigo"));
+            pedidoProduto.setPedp_quantidade(result.getInt("pedp_quantidade"));
+            pedidoProduto.setPedp_valor(result.getDouble("pedp_valor"));    
+            pedidoProduto.setPedp_valor_total(result.getDouble("pedp_valor_total"));    
+            pedidoProduto.setPedp_cod_produto(result.getInt("pedp_cod_produto"));
+            pedidoProduto.setPedp_cod_pedido(result.getInt("pedp_cod_pedido"));
+
+            return pedidoProduto;
+        } catch (SQLException e) {
+            System.err.println("Erro ao recuperar o registro " + e.getMessage());
+            return null;
+        }
+    }
 }

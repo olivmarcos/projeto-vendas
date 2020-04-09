@@ -82,7 +82,7 @@ public class PedidoDao {
     }
 
     public boolean delete(int id) {
-        String sql = "DELETE FROM TBL_PEDIDO WHERE cli_codigo = ?";
+        String sql = "DELETE FROM TBL_PEDIDO WHERE ped_codigo = ?";
 
         try {
             PreparedStatement pst = myConnection.prepareStatement(sql);
@@ -126,20 +126,43 @@ public class PedidoDao {
         return null;
     }
 
-    public int ultimoCodigo() throws SQLException {
+    public int recoverUltimoCodigo() throws SQLException {
         String sql = "SELECT ped_codigo FROM TBL_PEDIDO ORDER BY ped_codigo DESC LIMIT 1";
 
         try {
             PreparedStatement pst = myConnection.prepareStatement(sql);
             ResultSet result = pst.executeQuery();
             result.next();
-    
-            Pedido pedidoCodigo = new Pedido();
+
             int codigo = result.getInt("ped_codigo");
             return codigo;
-        } catch (Exception e) {
-            //TODO: handle exception
+        } catch (Exception err) {
+            System.err.println("Erro ao recuperar o código do último pedido: " + err.getMessage());
         }
         return 0;
+    }
+
+    public Pedido recoverUltimoPedido(int id) {
+
+        String sql = "SELECT ped_codigo, ped_data, ped_observacao, ped_cod_cliente, ped_cod_vendedor FROM TBL_PEDIDO WHERE ped_cod_CLIENTE = ? ORDER BY ped_codigo DESC LIMIT 1";
+
+        try {
+            PreparedStatement pst = myConnection.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet result = pst.executeQuery();
+            result.next();
+
+            Pedido pedido = new Pedido();
+            pedido.setPed_codigo(result.getInt("ped_codigo"));
+            pedido.setPed_data(result.getDate("ped_data"));
+            pedido.setPed_observacao(result.getString("ped_observacao"));
+            pedido.setPed_cod_cliente(result.getInt("ped_cod_cliente"));
+            pedido.setPed_cod_vendedor(result.getInt("ped_cod_vendedor"));
+
+            return pedido;
+        } catch (SQLException e) {
+            System.err.println("Erro ao recuperar o registro " + e.getMessage());
+            return null;
+        }
     }
 }

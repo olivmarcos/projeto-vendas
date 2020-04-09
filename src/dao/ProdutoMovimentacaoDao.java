@@ -128,7 +128,7 @@ public class ProdutoMovimentacaoDao {
     }
 
     
-    public ProdutoMovimentacao recover(String data) {
+    public ProdutoMovimentacao recoverPorData(String data) {
 
         String sql = "SELECT prodm_codigo, prodm_data, prodm_descricao, prodm_cod_produto FROM TBL_PRODUTO_MOVIMENTACAO WHERE prodm_data = ?";
 
