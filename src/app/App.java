@@ -40,6 +40,5 @@ public class App {
         // pedidoFacade.fazerPedido(cliente, vendedor, pedido, produto);
 
         pedidoFacade.desfazerPedido(produto, pedido, cliente);
-
     }
 }

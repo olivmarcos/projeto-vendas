@@ -24,12 +24,12 @@ public class ClienteCtrl {
         }
     }
 
-    public String[] recover(int id) throws SQLException {
+    public Cliente recover(int id) throws SQLException {
         
         ClienteDao clienteDao = new ClienteDao();
         Cliente cliente = clienteDao.recover(id);
 
-        return cliente.toVetor();
+        return cliente;
     }
 
     public void update(String[] dados) throws SQLException, ParseException {

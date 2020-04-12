@@ -5,7 +5,12 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import dao.PedidoDao;
+import facade.PedidoFacade;
+import frontend.RealizarPedido;
+import models.Cliente;
 import models.Pedido;
+import models.Produto;
+import models.Vendedor;
 
 public class PedidoCtrl {
 
@@ -24,12 +29,12 @@ public class PedidoCtrl {
         }
     }
 
-    public String[] recover(int id) throws SQLException {
+    public Pedido recover(int id) throws SQLException {
         
         PedidoDao pedidoDao = new PedidoDao();
         Pedido pedido = pedidoDao.recover(id);
 
-        return pedido.toVetor();
+        return pedido;
     }
 
     public void update(String[] dados) throws SQLException, ParseException {
@@ -66,5 +71,10 @@ public class PedidoCtrl {
             matrizReturn[i] = listaPedidos.get(i).toVetor();
         }
         return matrizReturn;
+    }
+    
+    public void criarPedido(Cliente cliente, Vendedor vendedor, Pedido pedido, Produto produto, Double valorPedidoProduto, int quantidade) throws SQLException {
+        PedidoFacade pedidoFacade = new PedidoFacade();
+        pedidoFacade.fazerPedido(cliente, vendedor, pedido, produto, valorPedidoProduto, quantidade);
     }
 }

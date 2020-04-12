@@ -100,7 +100,7 @@ public class ProdutoDao {
     }
 
     public ArrayList<Produto> recoverAll() {
-        String sql = "SELECT pedp_codigo, pedp_quantidade, pedp_valor, pedp_valor_total, pedp_cod_produto, pedp_cod_pedido FROM TBL_PRODUTO";
+        String sql = "SELECT prod_codigo, prod_descricao, prod_saldo, prod_unidade FROM TBL_PRODUTO";
         ArrayList<Produto> produtos = new ArrayList<Produto>();
 
         try {
@@ -112,7 +112,7 @@ public class ProdutoDao {
 
                 Produto produto = new Produto();
 
-                produto.setProd_codigo(result.getInt("pedp_codigo"));
+                produto.setProd_codigo(result.getInt("prod_codigo"));
                 produto.setProd_descricao(result.getString("prod_descricao"));
                 produto.setProd_saldo(result.getInt("prod_saldo"));
                 produto.setProd_unidade(result.getString("prod_unidade"));
@@ -123,7 +123,7 @@ public class ProdutoDao {
 
         } catch (SQLException ex) {
 
-            System.err.println(ex.getMessage());
+            System.err.println("Erro ao buscar todos os produtos: " + ex.getMessage());
         }
         return null;
     }

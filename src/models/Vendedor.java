@@ -31,12 +31,16 @@ public class Vendedor {
     }
 
     @Override
-    public String toString() {
-        return "{" +
-            " vend_codigo='" + getVend_codigo() + "'" +
-            ", vend_nome='" + getVend_nome() + "'" +
-            ", vend_percentual_comissao='" + getVend_percentual_comissao() + "'" +
-            "}";
+//    public String toString() {
+//        return "{" +
+//            " vend_codigo='" + getVend_codigo() + "'" +
+//            ", vend_nome='" + getVend_nome() + "'" +
+//            ", vend_percentual_comissao='" + getVend_percentual_comissao() + "'" +
+//            "}";
+//    }
+    
+        public String toString() {
+        return this.getVend_codigo() + " - " + this.getVend_nome();
     }
 
     public String[] toVetor() {

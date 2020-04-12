@@ -23,12 +23,12 @@ public class ProdutoCtrl {
         }
     }
 
-    public String[] recover(int id) throws SQLException {
+    public Produto recover(int id) throws SQLException {
         
         ProdutoDao produtoDao = new ProdutoDao();
         Produto produto = produtoDao.recover(id);
 
-        return produto.toVetor();
+        return produto;
     }
 
     public void update(String[] dados) throws SQLException {

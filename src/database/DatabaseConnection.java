@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String STR_DRIVER = "com.mysql.cj.jdbc.Driver";  // definiÃ§Ã£o de qual banco serÃ¡ utilizado
+    private static final String STR_DRIVER = "org.gjt.mm.mysql.Driver";  // definiÃ§Ã£o de qual banco serÃ¡ utilizado
     private static final String DATABASE = "db_java"; // Nome do banco de dados         
-    private static final String IP = "172.26.81.199";  // ip de conexao
+    private static final String IP = "172.24.76.136";  // ip de conexao
     private static final String STR_CON = "jdbc:mysql://" + IP + ":3306/" + DATABASE; // string de conexao com o banco de dados
     private static final String USER = "root"; // Nome do usuÃ¡rio
     private static final String PASSWORD = "root"; // senha

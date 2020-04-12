@@ -40,13 +40,17 @@ public class Produto {
     }
 
     @Override
+//    public String toString() {
+//        return "{"
+//                + " prod_codigo='" + getProd_codigo() + "'"
+//                + ", prod_descricao='" + getProd_descricao() + "'"
+//                + ", prod_saldo='" + getProd_saldo() + "'"
+//                + ", prod_unidade='" + getProd_unidade() + "'"
+//                + "}";
+//    }
+
     public String toString() {
-        return "{" +
-            " prod_codigo='" + getProd_codigo() + "'" +
-            ", prod_descricao='" + getProd_descricao() + "'" +
-            ", prod_saldo='" + getProd_saldo() + "'" +
-            ", prod_unidade='" + getProd_unidade() + "'" +
-            "}";
+        return this.getProd_codigo() + " - " + this.getProd_descricao() + " - Estoque: " + getProd_saldo();
     }
 
     public String[] toVetor() {

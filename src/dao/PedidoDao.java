@@ -97,7 +97,7 @@ public class PedidoDao {
     }
 
     public ArrayList<Pedido> recoverAll() {
-        String sql = "SELECT cli_codigo, cli_nome, cli_cpf, cli_ultima_compra FROM TBL_PEDIDO";
+        String sql = "SELECT ped_codigo, ped_data, ped_observacao, ped_cod_cliente, ped_cod_vendedor FROM TBL_PEDIDO";
         ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 
         try {

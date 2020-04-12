@@ -67,9 +67,13 @@ public class Cliente {
     }
 
     @Override
-    public String toString() {
-        return "{" + " cli_codigo='" + getCli_codigo() + "'" + ", cli_nome='" + getCli_nome() + "'" + ", cli_cpf='"
-                + getCli_cpf() + "'" + ", cli_ultima_compra='" + getCli_ultima_compra() + "'" + "}";
+//    public String toString() {
+//        return "{" + " cli_codigo='" + getCli_codigo() + "'" + ", cli_nome='" + getCli_nome() + "'" + ", cli_cpf='"
+//                + getCli_cpf() + "'" + ", cli_ultima_compra='" + getCli_ultima_compra() + "'" + "}";
+//    }
+    
+        public String toString() {
+        return this.getCli_codigo() + " - " + this.getCli_nome();
     }
 
     public String[] toVetor() {

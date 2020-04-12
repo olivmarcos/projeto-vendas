@@ -98,7 +98,7 @@ public class VendedorDao {
     }
 
     public ArrayList<Vendedor> recoverAll() {
-        String sql = "SELECT prodm_codigo, prodm_data, prodm_descricao, prodm_cod_produto FROM TBL_VENDEDOR";
+        String sql = "SELECT vend_codigo, vend_nome, vend_percentual_comissao FROM TBL_VENDEDOR";
         ArrayList<Vendedor> vendedores = new ArrayList<Vendedor>();
 
         try {

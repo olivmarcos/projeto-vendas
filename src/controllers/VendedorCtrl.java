@@ -24,12 +24,12 @@ public class VendedorCtrl {
         }
     }
 
-    public String[] recover(int id) throws SQLException {
+    public Vendedor recover(int id) throws SQLException {
         
         VendedorDao vendedorDao = new VendedorDao();
         Vendedor vendedor = vendedorDao.recover(id);
 
-        return vendedor.toVetor();
+        return vendedor;
     }
 
     public void update(String[] dados) throws SQLException {
